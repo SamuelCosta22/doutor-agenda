@@ -10,6 +10,7 @@ const SignOutButton = () => {
 
   return (
     <Button
+      className="cursor-pointer"
       onClick={() =>
         authClient.signOut({
           fetchOptions: {
