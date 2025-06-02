@@ -25,6 +25,17 @@ type AppointmentWithRelations = typeof appointmentsTable.$inferSelect & {
 
 export const appointmentsTableColumns: ColumnDef<AppointmentWithRelations>[] = [
   {
+    id: "date",
+    accessorKey: "date",
+    header: "Data e Hora",
+    cell: (params) => {
+      const appointment = params.row.original;
+      return format(new Date(appointment.date), "dd/MM/yyyy 'às' HH:mm", {
+        locale: ptBR,
+      });
+    },
+  },
+  {
     id: "patient",
     accessorKey: "patient.name",
     header: "Paciente",
@@ -40,20 +51,22 @@ export const appointmentsTableColumns: ColumnDef<AppointmentWithRelations>[] = [
     },
   },
   {
-    id: "date",
-    accessorKey: "date",
-    header: "Data e Hora",
-    cell: (params) => {
-      const appointment = params.row.original;
-      return format(new Date(appointment.date), "dd/MM/yyyy 'às' HH:mm", {
-        locale: ptBR,
-      });
-    },
-  },
-  {
     id: "specialty",
     accessorKey: "doctor.specialty",
     header: "Especialidade",
+  },
+  {
+    id: "price",
+    accessorKey: "appointmentPriceInCents",
+    header: "Valor",
+    cell: (params) => {
+      const appointment = params.row.original;
+      const price = appointment.appointmentPriceInCents / 100;
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(price);
+    },
   },
   {
     id: "actions",
