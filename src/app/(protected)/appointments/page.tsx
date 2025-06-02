@@ -48,6 +48,9 @@ const AppointmentsPage = async () => {
 
   return (
     <PageContainer>
+      <div className="text-muted-foreground text-sm font-bold">
+        Menu Principal &gt; <span className="text-primary">Agendamentos</span>
+      </div>
       <PageHeader>
         <PageHeaderContent>
           <PageTitle>Agendamentos</PageTitle>

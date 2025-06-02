@@ -37,6 +37,9 @@ const DoctorsPage = async () => {
 
   return (
     <PageContainer>
+      <div className="text-muted-foreground text-sm font-bold">
+        Menu Principal &gt; <span className="text-primary">Médicos</span>
+      </div>
       <PageHeader>
         <PageHeaderContent>
           <PageTitle>Médicos</PageTitle>
