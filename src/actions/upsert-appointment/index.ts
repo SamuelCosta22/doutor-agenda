@@ -10,6 +10,7 @@ import { appointmentsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { actionClient } from "@/lib/next-safe-action";
 
+import { getAvailableTimes } from "../get-available-times";
 import { upsertAppointmentSchema } from "./schema";
 
 dayjs.extend(utc);
@@ -29,25 +30,37 @@ export const upsertAppointment = actionClient
       throw new Error("Clinic not found");
     }
 
-    const appointmentDate = dayjs(parsedInput.date)
+    const availableTimes = await getAvailableTimes({
+      doctorId: parsedInput.doctorId,
+      date: dayjs(parsedInput.date).format("YYYY-MM-DD"),
+    });
+    if (!availableTimes?.data) {
+      throw new Error("No available times");
+    }
+    const isTimeAvailable = availableTimes.data?.some(
+      (time) => time.value === parsedInput.time && time.available,
+    );
+    if (!isTimeAvailable) {
+      throw new Error("Time not available");
+    }
+
+    const appointmentDateTime = dayjs(parsedInput.date)
       .set("hour", parseInt(parsedInput.time.split(":")[0]))
       .set("minute", parseInt(parsedInput.time.split(":")[1]))
-      .set("second", 0)
       .toDate();
 
     await db
       .insert(appointmentsTable)
       .values({
         ...parsedInput,
-        id: parsedInput.id,
-        clinicId: session?.user?.clinic?.id,
-        date: appointmentDate,
+        clinicId: session?.user.clinic?.id,
+        date: appointmentDateTime,
       })
       .onConflictDoUpdate({
         target: [appointmentsTable.id],
         set: {
           ...parsedInput,
-          date: appointmentDate,
+          date: appointmentDateTime,
         },
       });
 
