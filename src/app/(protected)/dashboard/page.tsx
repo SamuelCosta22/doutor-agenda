@@ -14,6 +14,7 @@ import {
 import { getDashboard } from "@/data/get-dashboard";
 import { auth } from "@/lib/auth";
 
+import AppointmentsChart from "./_components/appointments-chart";
 import { DatePicker } from "./_components/date-picker";
 import StatsCards from "./_components/stats-cards";
 
@@ -45,18 +46,23 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
     );
   }
 
-  const { totalRevenue, totalAppointments, totalPatients, totalDoctors } =
-    await getDashboard({
-      from,
-      to,
-      session: {
-        user: {
-          clinic: {
-            id: session.user.clinic.id,
-          },
+  const {
+    totalRevenue,
+    totalAppointments,
+    totalPatients,
+    totalDoctors,
+    dailyAppointmentsData,
+  } = await getDashboard({
+    from,
+    to,
+    session: {
+      user: {
+        clinic: {
+          id: session.user.clinic.id,
         },
       },
-    });
+    },
+  });
 
   return (
     <PageContainer>
@@ -81,6 +87,9 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
           totalPatients={totalPatients.total}
           totalDoctors={totalDoctors.total}
         />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[2.25fr_1fr]">
+          <AppointmentsChart dailyAppointmentsData={dailyAppointmentsData} />
+        </div>
       </PageContent>
     </PageContainer>
   );
