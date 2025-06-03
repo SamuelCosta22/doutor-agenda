@@ -11,10 +11,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { doctorsTable } from "@/db/schema";
-import { patientsTable } from "@/db/schema";
+import { doctorsTable, patientsTable } from "@/db/schema";
 
-import { UpsertAppointmentForm } from "./upsert-appointment-form";
+import UpsertAppointmentForm from "./upsert-appointment-form";
 
 interface NewAppointmentDialogProps {
   doctors: (typeof doctorsTable.$inferSelect)[];

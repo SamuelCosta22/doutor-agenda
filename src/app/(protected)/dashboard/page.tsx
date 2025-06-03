@@ -14,6 +14,7 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { getDashboard } from "@/data/get-dashboard";
 import { auth } from "@/lib/auth";
 
@@ -87,6 +88,7 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
         </PageHeaderContent>
         <PageActions>
           <DatePicker />
+          <ThemeToggle />
         </PageActions>
       </PageHeader>
       <PageContent>

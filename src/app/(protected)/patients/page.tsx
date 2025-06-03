@@ -12,6 +12,7 @@ import {
   PageHeaderContent,
   PageTitle,
 } from "@/components/ui/page-container";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { db } from "@/db";
 import { patientsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
@@ -46,6 +47,7 @@ const PatientsPage = async () => {
         </PageHeaderContent>
         <PageActions>
           <AddPatientButton />
+          <ThemeToggle />
         </PageActions>
       </PageHeader>
       <PageContent>
