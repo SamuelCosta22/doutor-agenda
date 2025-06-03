@@ -18,6 +18,7 @@ import AppointmentsChart from "./_components/appointments-chart";
 import { DatePicker } from "./_components/date-picker";
 import StatsCards from "./_components/stats-cards";
 import TopDoctors from "./_components/top-doctors";
+import TopSpecialties from "./_components/top-specialties";
 
 interface DashboardPageProps {
   searchParams: Promise<{
@@ -53,6 +54,7 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
     totalPatients,
     totalDoctors,
     topDoctors,
+    topSpecialties,
     dailyAppointmentsData,
   } = await getDashboard({
     from,
@@ -89,9 +91,12 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
           totalPatients={totalPatients.total}
           totalDoctors={totalDoctors.total}
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[2.25fr_1fr]">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2.25fr_1fr]">
           <AppointmentsChart dailyAppointmentsData={dailyAppointmentsData} />
           <TopDoctors doctors={topDoctors} />
+        </div>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2.25fr_1fr]">
+          <TopSpecialties topSpecialties={topSpecialties} />
         </div>
       </PageContent>
     </PageContainer>
