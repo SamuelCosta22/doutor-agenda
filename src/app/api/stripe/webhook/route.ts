@@ -28,11 +28,12 @@ export const POST = async (request: Request) => {
 
   switch (event.type) {
     case "invoice.paid": {
-      const invoice = event.data.object as Stripe.Invoice;
+      const invoice = event.data.object as Stripe.Invoice & {
+        subscription?: string;
+      };
 
-      const subscriptionId =
-        invoice.subscription ??
-        invoice.parent?.subscription_details?.subscription;
+      const subscriptionId = (invoice.subscription ??
+        invoice.parent?.subscription_details?.subscription) as string;
 
       if (!subscriptionId) {
         throw new Error("Subscription ID not found");
