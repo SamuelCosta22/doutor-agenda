@@ -19,24 +19,21 @@ const SubscriptionPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  if (!session?.user) {
-    redirect("/authentication");
+  if (!session) {
+    redirect("/login");
   }
   if (!session.user.clinic) {
     redirect("/clinic-form");
   }
-
   return (
     <PageContainer>
       <div className="text-muted-foreground text-sm font-bold">
-        Menu Principal &gt; <span className="text-primary">Assinatura</span>
+        Outros &gt; <span className="text-primary">Assinatura</span>
       </div>
       <PageHeader>
         <PageHeaderContent>
           <PageTitle>Assinatura</PageTitle>
-          <PageDescription>
-            Gerencie as assinaturas da sua clínica
-          </PageDescription>
+          <PageDescription>Gerencie a sua assinatura.</PageDescription>
         </PageHeaderContent>
         <PageActions>
           <ThemeToggle />
@@ -45,6 +42,7 @@ const SubscriptionPage = async () => {
       <PageContent>
         <SubscriptionPlan
           className="w-[350px]"
+          active={session.user.plan === "essential"}
           userEmail={session.user.email}
         />
       </PageContent>

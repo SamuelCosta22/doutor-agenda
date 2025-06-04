@@ -89,7 +89,11 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={pathName === item.url}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathName === item.url}
+                    className="hover:text-primary data-[active=true]:text-primary data-[active=true]:bg-blue-200"
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -108,6 +112,7 @@ export function AppSidebar() {
                 <SidebarMenuButton
                   asChild
                   isActive={pathName === "/subscription"}
+                  className="text-violet-500 hover:text-violet-400 data-[active=true]:bg-violet-200 data-[active=true]:text-violet-700"
                 >
                   <Link href="/subscription">
                     <Gem />
