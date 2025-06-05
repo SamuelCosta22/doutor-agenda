@@ -25,6 +25,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { authClient } from "@/lib/auth-client";
 
 const registerSchema = z.object({
@@ -70,7 +71,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <Card>
+    <Card className="text-background bg-foreground">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <CardHeader>
@@ -113,9 +114,9 @@ const SignUpForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Senha</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} type="password" />
+                    <PasswordInput placeholder="********" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

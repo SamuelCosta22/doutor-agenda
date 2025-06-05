@@ -26,6 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { authClient } from "@/lib/auth-client";
 
 const loginSchema = z.object({
@@ -78,7 +79,7 @@ const LoginForm = () => {
   };
 
   return (
-    <Card>
+    <Card className="text-background bg-foreground">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
           <CardHeader>
@@ -108,9 +109,9 @@ const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Senha</FormLabel>
                   <FormControl>
-                    <Input {...field} type="password" />
+                    <PasswordInput placeholder="********" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,24 +130,31 @@ const LoginForm = () => {
                 )}
                 Entrar
               </Button>
+              <div className="flex items-center justify-center">
+                <div className="bg-muted-foreground h-[1px] flex-1" />
+                <p className="text-muted-foreground m-4 text-center text-sm">
+                  ou entre com
+                </p>
+                <div className="bg-muted-foreground h-[1px] flex-1" />
+              </div>
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
-                  className="cursor-pointer"
+                  className="hover:text-muted-foreground flex-1 cursor-pointer"
                   type="button"
                   onClick={handleGoogleLogin}
                 >
                   <GoogleIcon />
-                  Entrar com Google
+                  Google
                 </Button>
                 <Button
                   variant="outline"
-                  className="cursor-pointer"
+                  className="hover:text-muted-foreground flex-1 cursor-pointer"
                   type="button"
                   onClick={handleGithubLogin}
                 >
                   <GithubIcon className="mr-2 h-4 w-4" />
-                  Entrar com Github
+                  Github
                 </Button>
               </div>
             </div>
