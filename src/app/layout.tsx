@@ -32,11 +32,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning className="light">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function() { try { var theme = localStorage.getItem('clinic-ui-theme') || 'light'; if (theme === 'dark') { document.documentElement.classList.remove('light'); document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); document.documentElement.classList.add('light'); } } catch (e) { document.documentElement.classList.remove('dark'); document.documentElement.classList.add('light'); } })()",
+          }}
+        />
+      </head>
       <body className={`${manrope.variable} antialiased`}>
         <ReactQueryProvider>
           <NuqsAdapter>
-            <ThemeProvider defaultTheme="system" storageKey="clinic-ui-theme">
+            <ThemeProvider defaultTheme="light" storageKey="clinic-ui-theme">
               {children}
             </ThemeProvider>
           </NuqsAdapter>
