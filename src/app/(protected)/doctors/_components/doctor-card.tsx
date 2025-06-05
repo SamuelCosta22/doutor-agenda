@@ -45,6 +45,7 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
           <div>
             <h3 className="text-sm font-medium">Dr. {doctor.name}</h3>
             <p className="text-muted-foreground text-sm">{doctor.specialty}</p>
+            <p className="text-muted-foreground text-sm">CPF: {doctor.cpf}</p>
           </div>
         </div>
       </CardHeader>

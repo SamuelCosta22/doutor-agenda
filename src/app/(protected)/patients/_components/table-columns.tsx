@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 import { patientsTable } from "@/db/schema";
+import { validateCPF } from "@/helpers/validate-cpf";
 
 import PatientsTableActions from "./table-actions";
 
@@ -13,6 +14,21 @@ export const patientsTableColumns: ColumnDef<Patient>[] = [
     id: "name",
     accessorKey: "name",
     header: "Nome",
+  },
+  {
+    id: "cpf",
+    accessorKey: "cpf",
+    header: "CPF",
+    cell: (params) => {
+      const patient = params.row.original;
+      const cpf = patient.cpf;
+      if (!cpf) return "";
+      const formatted = cpf.replace(
+        /(\d{3})(\d{3})(\d{3})(\d{2})/,
+        "$1.$2.$3-$4",
+      );
+      return validateCPF(cpf) ? formatted : "CPF inválido";
+    },
   },
   {
     id: "email",

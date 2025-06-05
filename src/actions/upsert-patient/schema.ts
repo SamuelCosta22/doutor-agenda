@@ -1,10 +1,21 @@
 import { z } from "zod";
 
+import { validateCPF } from "@/helpers/validate-cpf";
+
 export const upsertPatientSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().trim().min(1, {
     message: "Nome é obrigatório.",
   }),
+  cpf: z
+    .string()
+    .trim()
+    .min(1, {
+      message: "CPF é obrigatório.",
+    })
+    .refine((cpf) => validateCPF(cpf), {
+      message: "CPF inválido.",
+    }),
   email: z.string().email({
     message: "Email inválido.",
   }),

@@ -5,7 +5,7 @@ import { Loader2, TrashIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { NumericFormat } from "react-number-format";
+import { NumericFormat, PatternFormat } from "react-number-format";
 import { toast } from "sonner";
 
 import { deleteDoctor } from "@/actions/delete-doctor";
@@ -67,6 +67,7 @@ const UpsertDoctorForm = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: doctor?.name ?? "",
+      cpf: doctor?.cpf ?? "",
       specialty: doctor?.specialty ?? "",
       appointmentPrice: doctor?.appointmentPriceInCents
         ? doctor.appointmentPriceInCents / 100
@@ -82,6 +83,7 @@ const UpsertDoctorForm = ({
     if (isOpen) {
       form.reset({
         name: doctor?.name ?? "",
+        cpf: doctor?.cpf ?? "",
         specialty: doctor?.specialty ?? "",
         appointmentPrice: doctor?.appointmentPriceInCents
           ? doctor.appointmentPriceInCents / 100
@@ -150,6 +152,28 @@ const UpsertDoctorForm = ({
                 <FormLabel>Nome</FormLabel>
                 <FormControl>
                   <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="cpf"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>CPF</FormLabel>
+                <FormControl>
+                  <PatternFormat
+                    format="###.###.###-##"
+                    mask="_"
+                    placeholder="000.000.000-00"
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value.value);
+                    }}
+                    customInput={Input}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

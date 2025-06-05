@@ -1,10 +1,21 @@
 import { z } from "zod";
 
+import { validateCPF } from "@/helpers/validate-cpf";
+
 export const formSchema = z
   .object({
     name: z.string().trim().min(1, {
       message: "Nome é obrigatório",
     }),
+    cpf: z
+      .string()
+      .trim()
+      .min(1, {
+        message: "CPF é obrigatório",
+      })
+      .refine((cpf) => validateCPF(cpf), {
+        message: "CPF inválido",
+      }),
     specialty: z.string().trim().min(1, {
       message: "Especialidade é obrigatória",
     }),

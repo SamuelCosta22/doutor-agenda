@@ -39,6 +39,9 @@ const formSchema = z.object({
   name: z.string().trim().min(1, {
     message: "Nome é obrigatório.",
   }),
+  cpf: z.string().trim().min(1, {
+    message: "CPF é obrigatório.",
+  }),
   email: z.string().email({
     message: "Email inválido.",
   }),
@@ -66,6 +69,7 @@ const UpsertPatientForm = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: patient?.name ?? "",
+      cpf: patient?.cpf ?? "",
       email: patient?.email ?? "",
       phoneNumber: patient?.phoneNumber ?? "",
       sex: patient?.sex ?? undefined,
@@ -74,7 +78,13 @@ const UpsertPatientForm = ({
 
   useEffect(() => {
     if (isOpen) {
-      form.reset(patient);
+      form.reset({
+        name: patient?.name ?? "",
+        cpf: patient?.cpf ?? "",
+        email: patient?.email ?? "",
+        phoneNumber: patient?.phoneNumber ?? "",
+        sex: patient?.sex ?? undefined,
+      });
     }
   }, [isOpen, form, patient]);
 
@@ -119,6 +129,28 @@ const UpsertPatientForm = ({
                   <Input
                     placeholder="Digite o nome completo do paciente"
                     {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="cpf"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>CPF</FormLabel>
+                <FormControl>
+                  <PatternFormat
+                    format="###.###.###-##"
+                    mask="_"
+                    placeholder="000.000.000-00"
+                    value={field.value}
+                    onValueChange={(value) => {
+                      field.onChange(value.value);
+                    }}
+                    customInput={Input}
                   />
                 </FormControl>
                 <FormMessage />
