@@ -50,7 +50,7 @@ const AppointmentsChart = ({
   const chartConfig = {
     appointments: {
       label: "Agendamentos",
-      color: "#0B68F7",
+      color: "oklch(0.5614 0.2279 260.49)",
     },
     revenue: {
       label: "Faturamento",
@@ -65,7 +65,7 @@ const AppointmentsChart = ({
         <CardTitle>Agendamentos e Faturamento</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[200px]">
+        <ChartContainer config={chartConfig}>
           <AreaChart
             data={chartData}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}

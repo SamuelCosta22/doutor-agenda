@@ -16,6 +16,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { doctorsTable } from "@/db/schema";
 import { getAvailability } from "@/helpers/availability";
+import { formatCPF } from "@/helpers/cpf";
 import { formatCurrencyInCents } from "@/helpers/currency";
 import { formatWeekDay } from "@/helpers/weekday";
 
@@ -45,7 +46,9 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
           <div>
             <h3 className="text-sm font-medium">Dr. {doctor.name}</h3>
             <p className="text-muted-foreground text-sm">{doctor.specialty}</p>
-            <p className="text-muted-foreground text-sm">CPF: {doctor.cpf}</p>
+            <p className="text-muted-foreground text-sm">
+              CPF: {formatCPF(doctor.cpf)}
+            </p>
           </div>
         </div>
       </CardHeader>

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { validateCPF } from "@/helpers/validate-cpf";
+import { validateCPF } from "@/helpers/cpf";
 
 export const upsertPatientSchema = z.object({
   id: z.string().uuid().optional(),
