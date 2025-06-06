@@ -7,6 +7,8 @@ import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { usersTable, usersToClinicsTable } from "@/db/schema";
 
+const COOKIE_CACHE_TIME_MINUTES = 15 * 60;
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -34,7 +36,7 @@ export const auth = betterAuth({
           },
         }),
       ]);
-      
+
       // TODO: Ao adaptar para o usuário ter múltiplas clínicas, deve-se mudar esse código
       const clinic = clinics?.[0];
       return {
@@ -73,6 +75,10 @@ export const auth = betterAuth({
     },
   },
   session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: COOKIE_CACHE_TIME_MINUTES,
+    },
     modelName: "sessionsTable",
   },
   account: {

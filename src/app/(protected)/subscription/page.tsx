@@ -25,6 +25,7 @@ const SubscriptionPage = async () => {
   if (!session.user.clinic) {
     redirect("/clinic-form");
   }
+  
   return (
     <PageContainer>
       <div className="text-muted-foreground text-sm font-bold">
